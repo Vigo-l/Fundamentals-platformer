@@ -1,56 +1,52 @@
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
-    private float horizontal;
-    private float speed = 8f;
-    private float jumpingPower = 16f;
-    private bool isFacingRight = true;
 
-    [SerializeField] private Rigidbody2D rb;
-    [SerializeField] private Transform groundCheck; // This can still be used as the raycast origin
-    [SerializeField] private LayerMask groundLayer;
-    [SerializeField] private float groundCheckDistance = 0.5f; // Raycast distance
+    //Movement
+    public float speed;
+    public float jump;
+    float moveVelocity;
+
+    //Grounded Vars
+    bool isGrounded = true;
 
     void Update()
     {
-        horizontal = Input.GetAxisRaw("Horizontal");
-
-        if (Input.GetKeyDown(KeyCode.Space) && IsGrounded())
+        //Jumping
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.W))
         {
-            rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
+            if (isGrounded)
+            {
+                GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, jump);
+                isGrounded = false;
+            }
         }
 
-        if (Input.GetKeyUp(KeyCode.Space) && rb.velocity.y > 0f)
+        moveVelocity = 0;
+
+        //Left Right Movement
+        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
         {
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+            moveVelocity = -speed;
+        }
+        if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
+        {
+            moveVelocity = speed;
         }
 
-        Flip();
+        GetComponent<Rigidbody2D>().velocity = new Vector2(moveVelocity, GetComponent<Rigidbody2D>().velocity.y);
+
     }
-
-    private void FixedUpdate()
+    //Check if Grounded
+    void OnCollisionEnter2D(Collision2D col)
     {
-        rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
+        Debug.Log("OnCollisionEnter2D");
+        isGrounded = true;
     }
-
-    private bool IsGrounded()
+    void OnCollisionExit2D(Collision2D col)
     {
-        // Perform a raycast downwards from the groundCheck position to check for ground collision
-        RaycastHit2D hit = Physics2D.Raycast(groundCheck.position, Vector2.down, groundCheckDistance, groundLayer);
-
-        // Return true if the ray hits something, indicating the player is grounded
-        return hit.collider != null;
-    }
-
-    private void Flip()
-    {
-        if (isFacingRight && horizontal < 0f || !isFacingRight && horizontal > 0f)
-        {
-            isFacingRight = !isFacingRight;
-            Vector3 localScale = transform.localScale;
-            localScale.x *= -1f;
-            transform.localScale = localScale;
-        }
+        Debug.Log("OnCollisionExit2D");
+        isGrounded = false;
     }
 }
