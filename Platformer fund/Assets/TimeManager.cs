@@ -7,7 +7,7 @@ public class TimeManager : MonoBehaviour
     private bool endReached;
     [SerializeField] private TextMeshProUGUI TimeText;
 
-    private void Start()
+    private void Awake()
     {
         endReached = false;
         timer = 0;
@@ -25,7 +25,7 @@ public class TimeManager : MonoBehaviour
         float milliseconds = (timer % 1) * 1000;
 
 
-        TimeText.text = $"Time: {minutes:00}:{seconds:00}.{milliseconds:0}";
+        TimeText.text = $"<Time: {minutes:00}:{seconds:00}.{milliseconds:0}>";
 
     }
 
