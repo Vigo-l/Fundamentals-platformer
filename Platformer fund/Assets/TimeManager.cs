@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TimeManager : MonoBehaviour
 {
@@ -7,10 +8,17 @@ public class TimeManager : MonoBehaviour
     private bool endReached;
     [SerializeField] private TextMeshProUGUI TimeText;
 
-    private void Awake()
+    private void Start()
     {
-        endReached = false;
-        timer = 0;
+        if (SceneManager.GetActiveScene().name != "Win")
+        {
+            endReached = false;
+            timer = 0;
+        }
+        else
+        {
+            endReached = true;
+        }
     }
 
     private void Update()
@@ -35,6 +43,7 @@ public class TimeManager : MonoBehaviour
         {
             Debug.Log("help");
             endReached = true;
+            SceneManager.LoadScene("Win");
         }
     }
 }
