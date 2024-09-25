@@ -8,7 +8,7 @@ public class SceneLoader : MonoBehaviour
     {
         SceneManager.LoadScene("Fennas Scene");
     }
-    public void Win()
+    public static void Win()
     {
         SceneManager.LoadScene("Win");
     }

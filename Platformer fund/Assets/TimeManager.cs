@@ -43,7 +43,7 @@ public class TimeManager : MonoBehaviour
         {
             Debug.Log("help");
             endReached = true;
-            SceneLoader.Died();
+            SceneLoader.Win();
         }
     }
 }

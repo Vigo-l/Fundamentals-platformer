@@ -24,9 +24,9 @@ public class Enemy : MonoBehaviour
         {
             dirX *= -1f;
         }
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player")) //die
         {
-            SceneManager.LoadScene(0);
+            SceneLoader.Died();
         }
     }
 
