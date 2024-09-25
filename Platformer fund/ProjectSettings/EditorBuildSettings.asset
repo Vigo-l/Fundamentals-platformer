@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu.unity
     guid: fc44c9c200ba6db4d9c283ca8c72480d
   - enabled: 1
-    path: Assets/Scenes/Vigos scene.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+    path: Assets/Scenes/Level1.unity
+    guid: ec4b390e37fd86c40ad8d7d401339c9a
+  - enabled: 1
+    path: Assets/Scenes/Win.unity
+    guid: 1ac2e1713aaa99848bfddafa17d93b2f
   m_configObjects: {}
