@@ -16,6 +16,10 @@ public class SceneLoader : MonoBehaviour
     {
         SceneManager.LoadScene("Menu");
     }
+    public static void Died()
+    {
+        SceneManager.LoadScene("Died");
+    }
     public void ExitGame()
     {
         Application.Quit();
