@@ -10,7 +10,7 @@ public class TimeManager : MonoBehaviour
 
     private void Start()
     {
-        if (SceneManager.GetActiveScene().name != "Win")
+        if (SceneManager.GetActiveScene().name != "Win" && SceneManager.GetActiveScene().name != "Died")
         {
             endReached = false;
             timer = 0;
@@ -43,7 +43,7 @@ public class TimeManager : MonoBehaviour
         {
             Debug.Log("help");
             endReached = true;
-            SceneManager.LoadScene("Win");
+            SceneLoader.Win();
         }
     }
 }
